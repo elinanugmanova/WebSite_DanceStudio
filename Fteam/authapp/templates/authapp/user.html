@@ -1,0 +1,45 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Пользователи
+{% endblock title %}
+
+{% block head %}
+<h2>Пользователи</h2>
+
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Почта</th>
+            <th>Логин</th>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <th></th>
+            <th></th>
+            {% endif %}
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.username }}</td>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <td>
+                <a href="{% url 'user_update' user.id%}" class="btn btn-primary">Изменить</a>
+            </td>
+            <td>
+                <a href="{% url 'user_delete' user.id%}" class="btn btn-primary">Удалить</a>
+            </td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

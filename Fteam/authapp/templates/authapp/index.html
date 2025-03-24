@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>F-team</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/aos/aos.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/bootstrap/css/bootstrap.min.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/boxicons/css/boxicons.min.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/glightbox/css/glightbox.min.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/remixicon/remixicon.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/swiper/swiper-bundle.min.css'%}" >
+
+
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'authapp/assets/css/style.css'%}" >
+
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="/">F-team<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      {% comment %} <a href="index.html" class="logo me-auto me-lg-0"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a> {% endcomment %}
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto" href="#about">О нас</a></li>
+          <li><a class="nav-link scrollto" href="/abonement">Абонементы</a></li>
+          <li><a class="nav-link scrollto" href="/training">Расписание</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a class="nav-link scrollto" href="{% url 'profile' %}">Профиль</a></li>
+            {% if request.user.is_staff or request.user.is_superuser %}
+                <li><a class="nav-link scrollto" href="{% url 'trainer' %}">Тренеры</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'order' %}">Покупки Абонементов</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'record' %}">Записи на тренировку</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'user' %}">Пользователи</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'statistics' %}">Статистика</a></li>
+
+            {% endif %}
+          {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      {% if not request.user.is_authenticated %}
+        <a href="/login" class="get-started-btn scrollto">Войти</a>
+      {% else %}
+        <a href="/logout" class="get-started-btn scrollto">Выйти</a>
+      {% endif %}
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+        <div class="col-xl-6 col-lg-8">
+          <h1>Живи<span>.</span></h1>
+          <h1>Танцуй<span>.</span></h1>
+          <h1>Вдохновляй<span>.</span></h1>
+        </div>
+      </div>  
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+            <img src="{% static 'authapp/assets/img/elina2.jpg' %}" class="img-fluid" alt="Танцевальная студия">
+
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right" data-aos-delay="100">
+            <h3>Устал от скучной жизни, а тело так и просится танцевать?</h3>
+            <p class="fst-italic">
+              Тогда тебе к нам! Здесь каждый найдет свое место, независимо от уровня подготовки и возраста. Мы предлагаем разнообразные направления: от классического балета до зажигательных хип-хопа и современных танцевальных стилей. Наши опытные преподаватели помогут вам раскрыть свой потенциал, научат уверенно двигаться и наслаждаться каждым моментом на паркете. У нас царит дружелюбная атмосфера, где каждый может проявить себя и завести новые знакомства. Присоединяйтесь к нашим занятиям, участвуйте в мастер-классах и выступлениях! Танец — это не просто движение, это способ самовыражения. Начните свой танцевальный путь с нами уже сегодня!
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> В центре регулярно проходят занятия по расписанию, закрытые группы для начинающих танцовщиков, а также занимаются профессиональные команды.</li>
+              <li><i class="ri-check-double-line"></i> Неотъемлемой частью центра является детское отделение, где обучаются юные танцовщики от 4 до 16 лет.</li>
+              <li><i class="ri-check-double-line"></i> Широкий спектр направлений и преподавательского состава. </li>
+            </ul>
+            <p>
+              F-team — это центр притяжения танцевальной культуры, где регулярно проходят мастер-классы и другие танцевальные мероприятия от лучших российских и иностранных хореографов, участников и хореографов шоу «ТАНЦЫ».
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+
+
+
+
+
+  <!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+  
+      <div class="section-title">
+        <h2>Контакты</h2>
+        <p>Мы находимся</p>
+      </div>
+  
+      <div>
+        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ac23c95ef7d31f47e22726597d8321eaad5b3c6deb9cc5b850d8678ee70b17763&amp;source=constructor" width="100%" height="300" frameborder="0"></iframe>      </div>
+  
+        <div class="row mt-5">
+          <div class="col-lg-12 d-flex flex-column align-items-center">
+            <div class="info">
+              <div class="address mb-3">
+                <i class="bi bi-geo-alt"></i>
+                <p class="mb-0"><strong>Адрес:</strong> 2-я Бауманская ул., 5, Москва, Россия, 105005</p>
+              </div>
+        
+              <div class="email mb-3">
+                <i class="bi bi-envelope"></i>
+                <p class="mb-0"><strong>Email:</strong> info@F-team.ru</p>
+              </div>
+        
+              <div class="phone mb-3">
+                <i class="bi bi-phone"></i>
+                <p class="mb-0"><strong>Телефон:</strong> +7 800 555-35-35</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+  
+    </div>
+  </section>  <!-- End Contact Section -->
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-info">
+              <h3>F-team<span>.</span></h3>
+              <p>
+                2-я Бауманская ул., 5<br>
+                Москва, Россия, 105005<br><br>
+                <strong>Телефон:</strong> +7 800 555-35-35<br>
+                <strong>Email:</strong> info@F-team.ru<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-links">
+            <h4>Полезные ссылки</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">О нас</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">Абонементы</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Расписание</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'authapp/assets/vendor/purecounter/purecounter_vanilla.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/aos/aos.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/glightbox/js/glightbox.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/isotope-layout/isotope.pkgd.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/swiper/swiper-bundle.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/php-email-form/validate.js'%}" ></script>
+
+
+
+    <!-- Template Main JS File -->
+  <script src="{% static 'authapp/assets/js/main.js'%}"></script>
+
+
+</body>
+
+</html>

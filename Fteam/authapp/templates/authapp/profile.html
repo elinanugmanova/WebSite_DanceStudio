@@ -1,0 +1,96 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Профиль
+{% endblock title %}
+
+{% block head %}
+<div class="container mt-2">
+    <h1>Профиль </h1>
+    <br>
+    <div class="row">
+        <div class="col-md-12"> <!-- Расширенный для большей ширины -->
+            <div class="card bg-light mb-3">
+                <div class="card-header">Информация о профиле</div>
+                <div class="card-body">
+                    <p class="card-text"><strong>Имя:</strong> {{ user.first_name }}</p>
+                    <p class="card-text"><strong>Фамилия:</strong> {{ user.last_name }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                    <br>
+                    <a href="profile/update" class="btn btn-primary">Редактировать профиль</a>
+                </div>
+            </div>
+
+            <!-- Раздел с информацией об абонементах -->
+            <div class="card bg-light mb-3">
+                <div class="card-header">Ваши абонементы</div>
+                <div class="card-body">
+                    {% if orders %}
+                        <div class="table-responsive"> <!-- Добавлено для адаптивности таблицы -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Абонемент</th>
+                                        <th>Дата покупки</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.abonement.name }}</td>
+                                        <td>{{ order.created_at }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>У вас пока нет абонементов.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+
+            <!-- Раздел с информацией об абонементах -->
+            <div class="card bg-light mb-3">
+                <div class="card-header">Ваши записи</div>
+                <div class="card-body">
+                    {% if records %}
+                        <div class="table-responsive"> <!-- Добавлено для адаптивности таблицы -->
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Дата</th>
+                                        <th>Начало</th>
+                                        <th>Конец</th>
+                                        <th>Направление</th>
+                                        <th>Преподаватель</th>
+                                        <th>Номер зала</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for record in records %}
+                                    <tr>
+                                        <td>{{ record.training.date }}</td>
+                                        <td>{{ record.training.time_start }}</td>
+                                        <td>{{ record.training.time_end }}</td>
+                                        <td>{{ record.training.get_specialization_display }}</td>
+                                        <td>{{ record.training.trainer.fio }}</td>
+                                        <td>{{ record.training.gym_number }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>У вас пока нет записей на занятия.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

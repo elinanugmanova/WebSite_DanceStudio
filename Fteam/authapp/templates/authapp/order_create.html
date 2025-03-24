@@ -1,0 +1,38 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Добавление покупки абонемента
+{% endblock title %}
+
+{% block head %}
+<h2>Добавление покупки абонемента</h2>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-3"> </div>
+
+        <div class="col-md-6">
+            <form method="post">
+
+                {% csrf_token %}
+                {{ form.user }}
+                {{ form.abonement }}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                    {{error}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock head %}
+
+
+
+
+
+

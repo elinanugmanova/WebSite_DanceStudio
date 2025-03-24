@@ -1,0 +1,42 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Добавление тренировки
+{% endblock title %}
+
+{% block head %}
+<h2>Добавление тренировки</h2>
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-3"> </div>
+
+        <div class="col-md-6">
+            <form method="post">
+
+                {% csrf_token %}
+                {{ form.specialization }}
+                {{ form.date }}
+                {{ form.time_start }}
+                {{ form.time_end }}
+                {{ form.gym_number }}
+                {{ form.trainer }}
+                <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+                    {{error}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="submit">Добавить</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-3"></div>
+    </div>
+</div>
+{% endblock head %}
+
+
+
+
+
+

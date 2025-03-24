@@ -1,0 +1,60 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Расписание
+{% endblock title %}
+
+{% block head %}
+<h2>Расписание</h2>
+
+{% if request.user.is_staff or request.user.is_superuser %}
+    <div class="mb-1 mt-3">
+        <a href="{% url 'training_create' %}" class="btn btn-primary">Добавить Тренировку</a>
+    </div>
+{% endif %}
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Начало</th>
+            <th>Конец</th>
+            <th>Направление</th>
+            <th>Преподаватель</th>
+            <th>Номер зала</th>
+            {% if request.user.is_authenticated and not request.user.is_staff and not request.user.is_superuser %}
+            <th></th>
+            {% endif %}
+            {% if request.user.is_staff or request.user.is_superuser %}
+                <th></th>
+                <th></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for training in trainings %}
+        <tr>
+            <td>{{ training.date }}</td>
+            <td>{{ training.time_start }}</td>
+            <td>{{ training.time_end }}</td>
+            <td>{{ training.get_specialization_display }}</td>
+            <td>{{ training.trainer.fio }}</td>
+            <td>{{ training.gym_number }}</td>
+             {% if request.user.is_staff or request.user.is_superuser %}
+            <td>
+                <a href="{% url 'training_update' training.id%}" class="btn btn-primary">Изменить</a>
+            </td>
+            <td>
+                <a href="{% url 'training_delete' training.id%}" class="btn btn-primary">Удалить</a>
+            </td>
+            {% endif %}
+            {% if request.user.is_authenticated and not request.user.is_staff and not request.user.is_superuser %}
+            <td>
+                <a href="{% url 'create_record' training.id %}" class="btn btn-primary">Записаться</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

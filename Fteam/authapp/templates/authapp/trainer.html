@@ -1,0 +1,51 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Тренеры
+{% endblock title %}
+
+{% block head %}
+<h2>Тренеры</h2>
+
+{% if request.user.is_staff or request.user.is_superuser %}
+    <div class="mb-1 mt-3">
+        <a href="{% url 'trainer_create' %}" class="btn btn-primary">Добавить Тренера</a>
+    </div>
+{% endif %}
+
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Напрвление</th>
+            <th>Телефон</th>
+            <th>Почта</th>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <th></th>
+            <th></th>
+            {% endif %}
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for trainer in trainers %}
+        <tr>
+            <td>{{ trainer.fio }}</td>
+            <td>{{ trainer.get_specialization_display }}</td>
+            <td>{{ trainer.phonenumber }}</td>
+            <td>{{ trainer.email }}</td>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <td>
+                <a href="{% url 'trainer_update' trainer.id%}" class="btn btn-primary">Изменить</a>
+            </td>
+            <td>
+                <a href="{% url 'trainer_delete' trainer.id%}" class="btn btn-primary">Удалить</a>
+            </td>
+            {% endif %}
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

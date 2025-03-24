@@ -1,0 +1,48 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Покупки абонементов
+{% endblock title %}
+
+{% block head %}
+<h2>Покупки абонементов</h2>
+
+
+{% if request.user.is_staff or request.user.is_superuser %}
+    <div class="mb-1 mt-3">
+        <a href="{% url 'order_create' %}" class="btn btn-primary">Добавить покупку абонемента</a>
+    </div>
+{% endif %}
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Пользователь</th>
+            <th>Абонемент</th>
+            <th>Дата покупки</th>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <th></th>
+            <th></th>
+            {% endif %}
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.user.username }}</td>
+            <td>{{ order.abonement.name }}</td>
+            <td>{{ order.created_at }}</td>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <td>
+                <a href="{% url 'order_update' order.id%}" class="btn btn-primary">Изменить</a>
+            </td>
+            <td>
+                <a href="{% url 'order_delete' order.id%}" class="btn btn-primary">Удалить</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Статистика
+{% endblock title %}
+
+{% block head %}
+<div class="container mt-2">
+    <h1>Статистика</h1>
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="get" action="{% url 'statistics' %}">
+                <div class="form-row align-items-end justify-content-center">
+                    <div class="col-md-12">
+                        <label for="start_date" style="color: white;">Начальная дата:</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ request.GET.start_date }}" required>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <label for="end_date" style="color: white;">Конечная дата:</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ request.GET.end_date }}" required>
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary">Показать статистику</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+
+
+    <br>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Общая информация</div>
+                <div class="card-body">
+                    <h5 class="card-title">Общая выручка</h5>
+                    <p class="card-text">{{ total_revenue }} руб.</p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Количество купленных абонементов</h5>
+                    {% if count_abonement %}
+                        {% for item in count_abonement %}
+                            <p class="card-text">{{ item.abonement__name }}: {{ item.count }} </p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="card-text">Нет данных об абонементах.</p>
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <h5 class="card-title">Количество записей на занятия</h5>
+                    {% if count_trainings %}
+                        {% for item1 in count_trainings %}
+                            <p class="card-text">{{ item1.display_specialization }}: {{ item1.count }} </p>
+                        {% endfor %}
+                    {% else %}
+                        <p class="card-text">Нет данных о записях на занятия.</p>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Самый востребованный тренер</h5>
+                    {% if count_trainings %}
+                        <p class="card-text">{{ best_trainer }}</p>
+                    {% else %}
+                        <p class="card-text">Нет данных</p>
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

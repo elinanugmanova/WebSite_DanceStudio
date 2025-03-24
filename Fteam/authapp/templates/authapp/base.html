@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>F-team - {% block title %}{% endblock title %}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/aos/aos.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/bootstrap/css/bootstrap.min.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/boxicons/css/boxicons.min.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/glightbox/css/glightbox.min.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/remixicon/remixicon.css'%}" >
+  <link rel="stylesheet" href="{% static 'authapp/assets/vendor/swiper/swiper-bundle.min.css'%}" >
+
+
+
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="{% static 'authapp/assets/css/style.css'%}" >
+
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+
+      <h1 class="logo me-auto me-lg-0"><a href="/">F-team<span>.</span></a></h1>
+      {% comment %} <a href="index.html" class="logo me-auto me-lg-0"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a> {% endcomment %}
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>          
+          <li><a class="nav-link scrollto" href="/#about">О нас</a></li>
+          <li><a class="nav-link scrollto" href="/abonement">Абонементы</a></li>
+          <li><a class="nav-link scrollto" href="/training">Расписание</a></li>
+          {% if request.user.is_authenticated %}
+            <li><a class="nav-link scrollto" href="{% url 'profile' %}">Профиль</a></li>
+            {% if request.user.is_staff or request.user.is_superuser %}
+                <li><a class="nav-link scrollto" href="{% url 'trainer' %}">Тренеры</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'order' %}">Покупки Абонементов</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'record' %}">Записи на тренировку</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'user' %}">Пользователи</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'statistics' %}">Статистика</a></li>
+
+            {% endif %}
+          {% endif %}                
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      {% if not request.user.is_authenticated %}
+        <a href="/login" class="get-started-btn scrollto">Войти</a>
+      {% else %}
+        <a href="/logout" class="get-started-btn scrollto">Выйти</a>
+      {% endif %}
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+        <div class="col-xl-6 col-lg-8">
+        
+            {% block head %}
+            
+            {% endblock head %}           
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+    {% block body %}
+    
+    {% endblock body %}
+  </main>
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'authapp/assets/vendor/purecounter/purecounter_vanilla.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/aos/aos.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/glightbox/js/glightbox.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/isotope-layout/isotope.pkgd.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/swiper/swiper-bundle.min.js'%}" ></script>
+  <script src="{% static 'authapp/assets/vendor/php-email-form/validate.js'%}" ></script>
+
+
+
+    <!-- Template Main JS File -->
+  <script src="{% static 'authapp/assets/js/main.js'%}"></script>
+
+
+</body>
+
+</html>

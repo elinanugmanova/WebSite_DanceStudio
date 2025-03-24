@@ -1,0 +1,55 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+Абонементы
+{% endblock title %}
+
+{% block head %}
+<h2>Наши Абонементы</h2>
+
+{% if request.user.is_staff or request.user.is_superuser %}
+    <div class="mb-1 mt-3">
+        <a href="{% url 'abonement_create' %}" class="btn btn-primary">Добавить Абонемент</a>
+    </div>
+{% endif %}
+
+<br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Количество тренировок</th>
+            <th>Цена</th>
+            {% if request.user.is_authenticated and not request.user.is_staff and not request.user.is_superuser %}
+            <th></th>
+            {% endif %}
+            {% if request.user.is_staff or request.user.is_superuser %}
+                <th></th>
+                <th></th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for abonement in abonements %}
+        <tr>
+            <td>{{ abonement.name }}</td>
+            <td>{{ abonement.number_of_trainings }}</td>
+            <td>{{ abonement.price }} руб.</td>
+            {% if request.user.is_staff or request.user.is_superuser %}
+            <td>
+                <a href="{% url 'abonement_update' abonement.id%}" class="btn btn-primary">Изменить</a>
+            </td>
+            <td>
+                <a href="{% url 'abonement_delete' abonement.id%}" class="btn btn-primary">Удалить</a>
+            </td>
+            {% endif %}
+            {% if request.user.is_authenticated and not request.user.is_staff and not request.user.is_superuser %}
+            <td>
+                <a href="{% url 'create_order' abonement.id %}" class="btn btn-primary">Купить</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
